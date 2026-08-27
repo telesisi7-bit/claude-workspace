@@ -30,8 +30,13 @@ claude-workspace/
 │   ├── sales.csv              #   매출 샘플 데이터
 │   └── resume.pdf             #   이력서 샘플
 │
-├── portfolio.html             # 포트폴리오 (책 샘플 - 김수민)
-├── portfolio-leo.html         # 포트폴리오 (레오 버전, 작성 중)
+├── web/                       # ★ 웹에 공개되는 폴더 (Vercel 배포 대상)
+│   └── index.html             #   레오 포트폴리오 = 배포되는 페이지
+│
+├── vercel.json                # 배포 설정 (web 폴더만 공개하도록 지정)
+├── .vercelignore              # Vercel 서버로 보내지 않을 파일 목록
+│
+├── portfolio.html             # 포트폴리오 (책 샘플 - 김수민, 배포 안 함)
 │
 ├── resume_sample.pdf          # 이력서 샘플
 ├── 부록A_GitHub_슬라이드.pdf
@@ -78,6 +83,44 @@ cd wader
 cp .env.example .env
 # .env 를 열어 디스코드 Webhook 주소를 채워 넣으세요
 ```
+
+---
+
+## 웹 배포 (Vercel)
+
+### 무엇이 공개되나
+
+**`web/` 폴더 안에 있는 것만** 인터넷에 공개됩니다.
+이력서, 매출 데이터, 작업 기록은 `web/` 밖에 있으므로 배포되지 않습니다.
+
+이중으로 막아두었습니다.
+
+| 장치 | 역할 |
+|---|---|
+| `vercel.json` 의 `outputDirectory: "web"` | web 폴더만 웹에 올림 |
+| `.vercelignore` | 개인 문서는 Vercel 서버에 업로드조차 안 됨 |
+
+### 배포 방법
+
+1. https://vercel.com 에서 GitHub 계정으로 로그인
+2. **Add New… → Project** → `claude-workspace` 저장소 선택 → Import
+3. 설정 화면에서 **Root Directory 는 그대로 `./` 로 둡니다**
+   (`vercel.json` 이 알아서 `web` 폴더를 지정합니다)
+4. **Deploy** 클릭
+
+이후 `main` 브랜치에 `git push` 할 때마다 자동으로 다시 배포됩니다.
+
+### 배포 후 반드시 확인할 것
+
+브라우저 주소창에 아래를 직접 쳐 보세요. **전부 404가 나와야 정상입니다.**
+
+```
+배포주소/docx/sales.csv
+배포주소/resume_sample.pdf
+배포주소/tasks/progress.md
+```
+
+하나라도 파일이 열리면 즉시 Vercel 프로젝트를 삭제하고 알려주세요.
 
 ---
 

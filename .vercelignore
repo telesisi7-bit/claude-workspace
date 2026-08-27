@@ -1,0 +1,31 @@
+# ============================================
+#  .vercelignore — Vercel 서버로 아예 보내지 않을 파일
+#
+#  vercel.json 의 outputDirectory 설정이 1차 방어선이고,
+#  이 파일은 2차 방어선입니다.
+#  (여기 적힌 것은 Vercel 서버에 업로드조차 되지 않습니다)
+# ============================================
+
+# 개인 문서 — 절대 공개 금지
+docx/
+resume_sample.pdf
+*.pdf
+
+# 작업 기록·규칙 문서
+tasks/
+claude.md
+CLAUDE_템플릿.md
+SECURITY.md
+README.md
+
+# 자동화 스크립트 (웹과 무관)
+wader/
+
+# 책 샘플 포트폴리오 (레오님 것이 아님)
+portfolio.html
+
+# 설정·백업
+.claude/
+*.bak
+.env
+.env.*
