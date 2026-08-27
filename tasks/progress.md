@@ -105,3 +105,38 @@
   - 스테이징 diff 전체를 정규식으로 스캔(webhook/sk-/gho_/ghp_/PRIVATE KEY) → 검출 0건
 - 저장소: https://github.com/telesisi7-bit/claude-workspace
 - 앞으로: `git add -A` → `git commit -m "설명"` → `git push`
+
+## 2026-08-28 (4) — 포트폴리오 다크모드 + Vercel 배포 세팅
+
+### 다크모드 (브랜치 작업 후 병합)
+- 발견: `portfolio-leo.html`에 다크 색상이 **이미 다 있었음**. 다만
+  `@media (prefers-color-scheme: dark)` 조건이라 **윈도우가 다크모드일 때만** 적용되던 상태.
+  → 색을 새로 만들 필요 없이 "언제 켜지는가"만 바꾸면 되는 문제였음.
+- 레오님 선택: 항상 다크가 아니라 **해/달 토글 버튼** 추가.
+- `feature/dark-mode` 브랜치에서 8곳 수정
+  1. 다크 팔레트를 `:root[data-theme="dark"]` 방식으로 전환 (OS 감지 제거)
+  2. 상단 메뉴 배경도 같은 방식으로
+  3. 토글 버튼 CSS (원형, --soft/--line 토큰 사용)
+  4. `<html lang="ko" data-theme="dark">` — 기본값 다크
+  5. `<meta name="color-scheme">` 추가 (스크롤바 등 브라우저 UI 색 맞춤)
+  6. head에 인라인 스크립트 — 저장된 선택을 그리기 전에 적용해 **새로고침 깜빡임 방지**
+  7. nav에 버튼 마크업
+  8. 버튼 동작 + localStorage 저장 (try/catch로 저장 차단 환경도 대응)
+- 검증: prefers-color-scheme 잔존 0건 / 태그 짝 일치 / node로 script 2블록 문법 검사 통과 / 레오님 육안 확인
+- `git merge --no-ff` 로 병합 — 브랜치에서 온 작업임이 이력에 남도록.
+
+### Vercel 배포 세팅 (실제 배포는 레오님이 직접)
+- **핵심 위험:** 저장소에 이력서 PDF, `docx/sales.csv`, `tasks/progress.md`, 개인정보가 있음.
+  저장소 전체를 배포하면 `주소/docx/sales.csv` 처럼 **누구나 다운로드 가능**해짐.
+- 대책: `web/` 폴더를 만들고 **그 안의 것만** 공개되도록 이중 차단
+  1. `vercel.json` → `"outputDirectory": "web"` (web 폴더만 웹에 올림)
+  2. `.vercelignore` → 개인 문서는 Vercel 서버에 **업로드조차 안 됨**
+- `portfolio-leo.html` → `web/index.html` 로 이동 (git mv, 이력 보존)
+  - 외부 파일 의존 없는 단일 HTML이라 경로 이동해도 안 깨짐 — 확인함
+- `vercel.json`에 보안 헤더 2개 추가 (X-Content-Type-Options, Referrer-Policy)
+- README에 배포 방법 + **배포 후 404 확인 체크리스트** 추가
+
+### 남은 일 (레오님)
+- [ ] Vercel에서 저장소 Import → Root Directory는 `./` 그대로 → Deploy
+- [ ] 배포 후 `주소/docx/sales.csv`, `주소/tasks/progress.md` 가 **404인지 반드시 확인**
+- [ ] 포트폴리오 「 」 자리표시자 **40군데** 채우기 (가짜 번호 010-0000-0000 포함)
