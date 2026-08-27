@@ -79,3 +79,29 @@
   - 계정: telesisi7-bit / 방식: https / 권한: gist, read:org, repo
   - 토큰은 Windows 자격 증명 관리자(keyring)에 저장됨. 파일로 남지 않음.
 - 배운 점(다음에 재사용): 대화형 CLI는 ① 옵션으로 질문 제거 ② 백그라운드 실행 ③ 출력 파일 읽어 중계 — 이 3단계로 처리 가능.
+
+## 2026-08-28 (3) — claude-workspace를 GitHub 프라이빗 저장소로 업로드
+
+- 요청: private 레포 / .gitignore 먼저 / README 정리 / 첫 커밋 "Initial setup".
+- **올리기 전 전수 조사 실시** (CLAUDE.md 규칙 6: 외부 업로드 전 민감정보 확인)
+  - 발견: `wader/.env`에 실제 디스코드 Webhook 주소 → 반드시 제외 대상
+  - 발견: `.claude/settings.local.json` 2개에 내부 경로(C:\Users\Admin\...) 노출
+  - 발견: `resume.pdf`와 `resume_sample.pdf`가 해시 동일한 중복 파일
+  - 레오님 판단 요청 → PDF 5개 전부 포함 / sales.csv는 실습용 가짜 데이터라 포함으로 결정
+- 작업 내용
+  1. `.gitignore` 신규 생성 — .env, *.key, *.pem, credentials, settings.local.json, *.bak, docx/re 차단
+     - **함정:** .gitignore는 `*.key   # 설명` 처럼 한 줄에 주석을 못 붙임(규칙이 깨짐).
+       처음에 그렇게 썼다가 바로 발견해 주석을 별도 줄로 분리함.
+  2. `README.md` 전면 개편 — 폴더 트리 + 문서 역할표 + 자동화 설명 + 초기 설정법
+     (기존 README는 `README.md.bak`으로 백업, 이 백업은 gitignore됨)
+  3. `git init -b main`, 커밋 사용자 정보는 **이 저장소에만** 로컬 설정
+     - 이메일은 실제 지메일 대신 GitHub 비공개 주소 사용
+       (`304287194+telesisi7-bit@users.noreply.github.com`) — 커밋은 영구 기록이라 공개 전환 대비
+  4. 커밋 `Initial setup` (20개 파일)
+  5. `gh repo create claude-workspace --private --source=. --push`
+- **검증 (GitHub 서버에서 직접 조회)**
+  - visibility = PRIVATE / 기본 브랜치 main — 확인
+  - 서버 파일 목록 20개, `wader/.env` 없음 — 확인
+  - 스테이징 diff 전체를 정규식으로 스캔(webhook/sk-/gho_/ghp_/PRIVATE KEY) → 검출 0건
+- 저장소: https://github.com/telesisi7-bit/claude-workspace
+- 앞으로: `git add -A` → `git commit -m "설명"` → `git push`
