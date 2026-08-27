@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김수민 — Marketing Specialist</title>
+<style>
+  :root{
+    --teal:#0f8a7a;
+    --teal-dark:#0b6558;
+    --teal-light:#e6f4f1;
+    --ink:#1b2a28;
+    --muted:#5f716e;
+    --line:#e4eae8;
+    --bg:#ffffff;
+    --card:#ffffff;
+    --soft:#f6faf9;
+    --shadow:0 4px 24px rgba(15,138,122,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --teal:#3fc7b4;
+      --teal-dark:#2fa593;
+      --teal-light:#12302c;
+      --ink:#e9f2f0;
+      --muted:#9db3af;
+      --line:#233a36;
+      --bg:#0d1615;
+      --card:#121e1c;
+      --soft:#101a19;
+      --shadow:0 4px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","맑은 고딕",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+
+  /* Nav */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(180%) blur(12px);
+    background:color-mix(in srgb,var(--bg) 82%,transparent);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  nav .brand{font-weight:800;letter-spacing:-.02em;font-size:1.05rem}
+  nav .links{display:flex;gap:26px}
+  nav .links a{color:var(--muted);font-size:.92rem;font-weight:500}
+  nav .links a:hover{color:var(--teal);text-decoration:none}
+  @media(max-width:640px){nav .links{display:none}}
+
+  /* Hero */
+  header.hero{
+    padding:96px 0 72px;
+    background:
+      radial-gradient(1200px 400px at 80% -10%,var(--teal-light),transparent 60%);
+  }
+  .hero .eyebrow{
+    display:inline-block;color:var(--teal);font-weight:700;
+    font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px;
+  }
+  .hero h1{font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.05;letter-spacing:-.03em;font-weight:800}
+  .hero h1 .accent{color:var(--teal)}
+  .hero p.tag{margin-top:20px;font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--muted);max-width:640px}
+  .hero .meta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+  .hero .meta span{
+    font-size:.88rem;color:var(--muted);background:var(--soft);
+    border:1px solid var(--line);padding:7px 14px;border-radius:999px;
+  }
+  .hero .cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+  .btn{
+    display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;font-size:.95rem;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn-primary{background:var(--teal);color:#fff}
+  .btn-primary:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{text-decoration:none;border-color:var(--teal);color:var(--teal)}
+
+  /* Sections */
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .sec-head{margin-bottom:36px}
+  .sec-head .kicker{color:var(--teal);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+  .sec-head h2{font-size:clamp(1.6rem,4vw,2.2rem);letter-spacing:-.02em;margin-top:8px}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;
+    box-shadow:var(--shadow);
+  }
+  .stat .num{font-size:1.9rem;font-weight:800;color:var(--teal);letter-spacing:-.02em}
+  .stat .lbl{font-size:.85rem;color:var(--muted);margin-top:4px}
+
+  /* Timeline */
+  .timeline{position:relative;margin-left:6px}
+  .item{position:relative;padding:0 0 40px 34px;border-left:2px solid var(--line)}
+  .item:last-child{padding-bottom:0}
+  .item::before{
+    content:"";position:absolute;left:-9px;top:2px;width:16px;height:16px;border-radius:50%;
+    background:var(--teal);border:3px solid var(--bg);
+  }
+  .item .role{font-size:1.2rem;font-weight:700}
+  .item .co{color:var(--teal);font-weight:600}
+  .item .period{font-size:.85rem;color:var(--muted);margin:4px 0 6px}
+  .item .ctx{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+  .item ul{list-style:none;display:grid;gap:8px}
+  .item ul li{position:relative;padding-left:20px;font-size:.96rem}
+  .item ul li::before{content:"";position:absolute;left:2px;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  .item ul li b{color:var(--ink);background:linear-gradient(transparent 60%,var(--teal-light) 0);padding:0 2px}
+
+  /* Cards (projects) */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;
+    box-shadow:var(--shadow);transition:transform .15s ease,border-color .15s ease;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--teal)}
+  .card .yr{font-size:.8rem;font-weight:700;color:var(--teal);letter-spacing:.05em}
+  .card h3{font-size:1.15rem;margin:8px 0 12px;letter-spacing:-.01em}
+  .card p{font-size:.94rem;color:var(--muted);margin-bottom:14px}
+  .card .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .card .tags span{font-size:.76rem;background:var(--soft);border:1px solid var(--line);color:var(--muted);padding:4px 10px;border-radius:999px}
+
+  /* Skills */
+  .skills{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.skills{grid-template-columns:1fr}}
+  .skill{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .skill h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:10px}
+  .skill .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .skill .chips span{font-size:.85rem;background:var(--soft);border:1px solid var(--line);padding:5px 12px;border-radius:8px}
+
+  /* Certs */
+  .certs{display:grid;gap:10px}
+  .cert{display:flex;align-items:center;gap:14px;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+  .cert .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex:none}
+  .cert span{font-size:.96rem}
+
+  /* Contact */
+  #contact{background:linear-gradient(180deg,transparent,var(--soft))}
+  .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px}
+  @media(max-width:640px){.contact-grid{grid-template-columns:1fr}}
+  .contact-card{
+    display:flex;align-items:center;gap:16px;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);
+  }
+  .contact-card .ic{
+    width:44px;height:44px;border-radius:11px;background:var(--teal-light);color:var(--teal);
+    display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex:none;font-weight:700;
+  }
+  .contact-card .k{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .contact-card .v{font-size:1rem;font-weight:600;word-break:break-all}
+
+  footer{padding:40px 0;text-align:center;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">김수민<span style="color:var(--teal)">.</span></div>
+    <div class="links">
+      <a href="#about">소개</a>
+      <a href="#experience">경력</a>
+      <a href="#projects">프로젝트</a>
+      <a href="#skills">스킬</a>
+      <a href="#contact">연락처</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Marketing Specialist</span>
+    <h1>데이터로 성장을 만드는<br><span class="accent">퍼포먼스 마케터</span>, 김수민입니다.</h1>
+    <p class="tag">B2B SaaS 그로스와 AI 기반 콘텐츠 자동화에 강점을 둔 마케터입니다. 광고 운영부터 어트리뷰션 모델링까지, 숫자로 증명하는 마케팅을 지향합니다.</p>
+    <div class="meta">
+      <span>📍 서울 마포구</span>
+      <span>🎓 한양대학교 경영학과</span>
+      <span>🗣️ 한국어 · English (TOEIC 925)</span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" href="#contact">연락하기</a>
+      <a class="btn btn-ghost" href="#experience">경력 보기</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">About</div>
+      <h2>숫자로 말하는 성과</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">7년+</div><div class="lbl">마케팅 실무 경력</div></div>
+      <div class="stat"><div class="num">38%↓</div><div class="lbl">유입 CPL 절감</div></div>
+      <div class="stat"><div class="num">4.2x</div><div class="lbl">인플루언서 평균 ROAS</div></div>
+      <div class="stat"><div class="num">2.3x</div><div class="lbl">오가닉 트래픽 증가</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Experience</div>
+      <h2>경력 사항</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="item">
+        <div class="role">마케팅 매니저</div>
+        <div class="co">주식회사 테크노바</div>
+        <div class="period">2022.03 – 현재</div>
+        <div class="ctx">B2B SaaS 스타트업 · 시리즈 A · 임직원 50명</div>
+        <ul>
+          <li>퍼포먼스 마케팅 총괄 — Google / Meta / Naver 광고 월 <b>5천만원</b> 규모 운영</li>
+          <li>유입 CPL <b>38% 절감</b>(6개월), 유료 전환율 2.1% → <b>3.4%</b> 개선</li>
+          <li>SEO 전략 수립 — 핵심 키워드 27개 10위권 진입, 오가닉 트래픽 <b>2.3배</b> 증가</li>
+          <li>콘텐츠 마케팅 — 블로그 주 3회 운영, 뉴스레터 구독자 <b>8,000명</b> 확보</li>
+          <li>HubSpot 기반 마케팅 자동화 워크플로우 12종 구축</li>
+          <li>GA4 · Amplitude · Looker Studio 대시보드 구축 및 주간 리포팅</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="role">마케팅 어시스턴트</div>
+        <div class="co">주식회사 리브랜드</div>
+        <div class="period">2019.03 – 2022.02</div>
+        <div class="ctx">DTC 뷰티 브랜드 · 연매출 50억 규모</div>
+        <ul>
+          <li>인스타그램 브랜드 계정 운영 — 팔로워 2.5만 → <b>12만</b> 증가 (3년)</li>
+          <li>인플루언서 마케팅 캠페인 14건 진행, 평균 ROAS <b>4.2배</b></li>
+          <li>신제품 런칭 캠페인 6건 기획·집행 (시즌 한정 라인 포함)</li>
+          <li>프리랜서 디자이너 3명 오케스트레이션 및 일정 관리</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="role">마케팅 동아리 ABLE 38기 · 부회장</div>
+        <div class="co">한양대학교</div>
+        <div class="period">2017 – 2018</div>
+        <div class="ctx">교내 마케팅 학회 · 경영학과 재학 중</div>
+        <ul>
+          <li>학회 프로젝트 기획 및 팀 운영, 마케팅 실무 기초 역량 형성</li>
+          <li>소비자 행동론 · 디지털 마케팅 · 브랜드 관리 등 마케팅 전공 심화</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Projects</div>
+      <h2>주요 프로젝트</h2>
+    </div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="yr">2024</div>
+        <h3>AI 기반 마케팅 생산성 개선</h3>
+        <p>GPT-4 API로 블로그 초안 생성 파이프라인을 설계, 주간 콘텐츠 산출량을 <b>3배</b>로 늘리고 사내 세미나에서 발표했습니다.</p>
+        <div class="tags"><span>Python</span><span>OpenAI API</span><span>Notion API</span></div>
+      </div>
+
+      <div class="card">
+        <div class="yr">2023</div>
+        <h3>캠페인 관리 자동화 시스템</h3>
+        <p>Notion + Airtable + Zapier로 캠페인 라이프사이클을 자동화해 수동 리포팅 시간을 주당 8시간 → <b>2.5시간</b>으로 단축했습니다.</p>
+        <div class="tags"><span>Notion</span><span>Airtable</span><span>Zapier</span></div>
+      </div>
+
+      <div class="card">
+        <div class="yr">2023</div>
+        <h3>풀퍼널 어트리뷰션 모델 구축</h3>
+        <p>GA4 + Amplitude 데이터를 BigQuery에 적재·결합하고 채널별 기여도를 재분석, 예산 재분배로 ROAS를 <b>1.7배</b> 끌어올렸습니다.</p>
+        <div class="tags"><span>GA4</span><span>Amplitude</span><span>BigQuery</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Skills</div>
+      <h2>보유 스킬</h2>
+    </div>
+    <div class="skills">
+      <div class="skill">
+        <h4>퍼포먼스 마케팅</h4>
+        <div class="chips"><span>Google Ads</span><span>Meta Ads</span><span>Naver Search</span><span>Kakao Moment</span></div>
+      </div>
+      <div class="skill">
+        <h4>데이터 분석</h4>
+        <div class="chips"><span>GA4</span><span>Amplitude</span><span>Hotjar</span><span>Looker Studio</span><span>Tableau</span></div>
+      </div>
+      <div class="skill">
+        <h4>마케팅 오토메이션</h4>
+        <div class="chips"><span>HubSpot</span><span>Mailchimp</span><span>Zapier</span></div>
+      </div>
+      <div class="skill">
+        <h4>콘텐츠 · SEO</h4>
+        <div class="chips"><span>카피라이팅</span><span>SEO 최적화</span><span>Ahrefs</span><span>Notion</span><span>Figma</span></div>
+      </div>
+      <div class="skill">
+        <h4>기술 역량</h4>
+        <div class="chips"><span>Excel 고급</span><span>SQL 기초</span><span>Python (pandas)</span></div>
+      </div>
+      <div class="skill">
+        <h4>자격증 &amp; 교육</h4>
+        <div class="certs">
+          <div class="cert"><span class="dot"></span><span>Google Ads Certified — Search, Display (2024)</span></div>
+          <div class="cert"><span class="dot"></span><span>Google Analytics Individual Qualification (2023)</span></div>
+          <div class="cert"><span class="dot"></span><span>HubSpot Inbound Marketing Certified (2023)</span></div>
+          <div class="cert"><span class="dot"></span><span>패스트캠퍼스 Growth Marketing 부트캠프 (2020)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Contact</div>
+      <h2>연락처</h2>
+    </div>
+    <p style="color:var(--muted);max-width:600px">협업, 채용, 커피챗 언제든 환영합니다. 아래 채널로 편하게 연락 주세요.</p>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:soomin.kim@example.com">
+        <div class="ic">✉</div>
+        <div><div class="k">Email</div><div class="v">soomin.kim@example.com</div></div>
+      </a>
+      <a class="contact-card" href="tel:01012345678">
+        <div class="ic">☎</div>
+        <div><div class="k">Phone</div><div class="v">010-1234-5678</div></div>
+      </a>
+      <a class="contact-card" href="https://soomin.example.com" target="_blank" rel="noopener">
+        <div class="ic">🌐</div>
+        <div><div class="k">Portfolio</div><div class="v">soomin.example.com</div></div>
+      </a>
+      <a class="contact-card" href="https://linkedin.com/in/soomin-kim" target="_blank" rel="noopener">
+        <div class="ic">in</div>
+        <div><div class="k">LinkedIn</div><div class="v">linkedin.com/in/soomin-kim</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 김수민 (Kim Soomin) · Marketing Specialist · 서울 마포구
+</footer>
+
+</body>
+</html>
