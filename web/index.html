@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="dark">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,16 +21,16 @@
     --accent-ink:#4338ca;
     --ink:#15181f;
     --ink-2:#3d4353;
-    --muted:#6b7280;
-    --line:#e6e8ee;
-    --bg:#ffffff;
+    --muted:#5d6870;
+    --line:#d4e3d0;
+    --bg:#eef6ec;
     --card:#ffffff;
-    --soft:#f7f8fb;
+    --soft:#e4efe1;
     --shadow:0 1px 2px rgba(16,24,40,.04), 0 12px 32px rgba(16,24,40,.06);
   }
   /* 다크 테마 색상
-     <html data-theme="dark"> 일 때 위의 밝은 색을 덮어씁니다.
-     기본값이 dark 이고, 오른쪽 위 버튼으로 전환합니다. */
+     <html data-theme="dark"> 일 때 위의 연녹색을 덮어씁니다.
+     기본값은 light(연녹색)이고, 오른쪽 위 버튼으로 전환합니다. */
   :root[data-theme="dark"]{
     --accent:#8b87f5;
     --accent-soft:#1e1b3a;
@@ -68,7 +68,7 @@
   /* ---------- 상단 내비게이션 ---------- */
   nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(255,255,255,.78);
+    background:rgba(238,246,236,.78);
     backdrop-filter:saturate(180%) blur(14px);
     -webkit-backdrop-filter:saturate(180%) blur(14px);
     border-bottom:1px solid var(--line);
@@ -215,8 +215,9 @@
      이게 없으면 새로고침할 때 잠깐 반대 색이 번쩍입니다. */
   (function(){
     try{
-      if(localStorage.getItem("leo-portfolio-theme") === "light"){
-        document.documentElement.setAttribute("data-theme","light");
+      var t = localStorage.getItem("leo-portfolio-theme");
+      if(t === "dark" || t === "light"){
+        document.documentElement.setAttribute("data-theme", t);
       }
     }catch(e){ /* 브라우저가 저장을 막아도 그냥 기본(다크)으로 진행 */ }
   })();
