@@ -4,6 +4,24 @@
 
 ## 진행 중
 
+### 포트폴리오에 방명록(guestbook) 기능 추가 (2026-08-29)
+
+**목표:** Supabase(Postgres) 기반 방명록 — 이름/메시지 입력 폼 + 목록을 포트폴리오 맨 아래에 추가.
+
+**중요 제약:** 이 프로젝트는 빌드 도구 없는 순수 정적 HTML(`web/index.html`)이라 `.env.local`을 브라우저가 직접 읽을 수 없음.
+→ 실제 값은 `web/config.js`(gitignore)에, 템플릿은 `web/config.example.js`(git 공개)에 저장.
+→ `.env.local`은 참고 기록용으로만 별도 생성 (코드가 직접 읽지 않음).
+→ Supabase anon key는 원래 클라이언트 코드 노출이 전제된 키(보안은 RLS가 담당).
+
+**체크리스트**
+- [x] 1. `supabase/messages_schema.sql` — messages 테이블(id, name, content, created_at) + RLS(읽기/쓰기 공개, 수정·삭제 불가)
+- [x] 2. `web/config.js`(비공개, 실제 키) + `web/config.example.js`(공개 템플릿) + 루트 `.env.local`(기록용) 생성
+- [x] 3. `.gitignore`에 `web/config.js`, `.env.local` 추가
+- [x] 4. `web/index.html` footer 위에 방명록 섹션(폼+목록) 추가, Supabase JS는 CDN 로드, 입력값은 textContent로만 렌더링(XSS 방지)
+- [x] 5. 로컬 정적 서버로 실제 등록/조회 테스트 — 레오님 확인 완료 ("정상적으로 된다")
+
+**→ 이 작업 완료.**
+
 ### 날씨 정보를 디스코드 채널로도 전송 (2026-08-26)
 
 **목표:** 매일 9시 `weather.txt` 저장에 더해, 디스코드 채널에도 예쁜 카드로 알림.

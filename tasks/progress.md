@@ -2,6 +2,20 @@
 
 작업 이력을 최신순으로 기록합니다. 형식: `## YYYY-MM-DD` 아래에 무엇을, 왜 했는지 간단히 남깁니다.
 
+## 2026-08-29 — 포트폴리오 방명록(guestbook) 기능 완료
+
+- 요청: 포트폴리오 맨 아래에 Supabase 기반 방명록(이름/메시지/작성시간) 추가.
+- `supabase/messages_schema.sql` — `messages` 테이블 + RLS(읽기/쓰기 공개, 수정·삭제 불가) 작성.
+  레오님이 Supabase 대시보드 SQL Editor에서 직접 실행 (Success 확인됨).
+- **정적 사이트 제약 대응**: 이 프로젝트는 빌드 도구 없는 순수 HTML이라 `.env.local`을
+  브라우저가 못 읽음. 대신 `web/config.js`(비공개, 실제 키)와 `web/config.example.js`
+  (공개 템플릿)로 분리. `.env.local`은 참고 기록용으로만 루트에 별도 생성.
+  둘 다 `.gitignore`에 등록, `git check-ignore`로 확인 완료.
+- `web/index.html`에 방명록 섹션 추가 (폼 + 최신순 목록). Supabase JS는 CDN 로드,
+  사용자 입력은 `textContent`로만 렌더링해 XSS 방지.
+- 로컬 테스트: `python -m http.server 5500`으로 `web/` 서빙, 실제 등록/조회까지
+  브라우저에서 확인 완료 (레오님 확인: "정상적으로 된다").
+
 ## 2026-08-26 (3) — 디스코드 알림 연동 완료
 
 - 요청: 날씨 정보를 디스코드 채널에도 전송.
